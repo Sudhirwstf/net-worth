@@ -10,20 +10,20 @@ interface NetworkResponse {
   answer: Answer;
 }
 
-const sampleData: NetworkResponse = {
-  question: "A credit",
-  answer: {
-    responseText:
-      "A credit card is a financial tool issued by banks that allows cardholders to borrow funds to pay for goods and services. These funds must be repaid over time, with interest if not paid in full by the due date. Below are some key points about credit cards:\n\n- *Credit Line: An approved limit set by the bank which the cardholder can utilize.\n- **Interest Rates: Charges applied if the borrowed amount is not repaid in full by the statement due date.\n- **Rewards: Many cards offer rewards like cashback, miles, or points for spending.\n- **Fees: Cards may have annual fees, late payment fees, or other charges depending on the issuer.\n- **Eligibility*: Typically based on income, credit score, and residency requirements. \n\nWould you like to know more specific details about different credit cards?",
-    structuredResponse: {
-      "Key Features of Credit Card": "Borrow funds for purchases, repayable over time.",
-      "Interest Rates": "Applicable if balance unpaid.",
-      Rewards: "Cashback, miles, or points for eligible spends.",
-      Fees: "Can include annual, late payment, and other types of fees.",
-      Eligibility: "Depends on income, credit score, and residency.",
-    },
-  },
-};
+// const sampleData: NetworkResponse = {
+//   question: "A credit",
+//   answer: {
+//     responseText:
+//       "A credit card is a financial tool issued by banks that allows cardholders to borrow funds to pay for goods and services. These funds must be repaid over time, with interest if not paid in full by the due date. Below are some key points about credit cards:\n\n- *Credit Line: An approved limit set by the bank which the cardholder can utilize.\n- **Interest Rates: Charges applied if the borrowed amount is not repaid in full by the statement due date.\n- **Rewards: Many cards offer rewards like cashback, miles, or points for spending.\n- **Fees: Cards may have annual fees, late payment fees, or other charges depending on the issuer.\n- **Eligibility*: Typically based on income, credit score, and residency requirements. \n\nWould you like to know more specific details about different credit cards?",
+//     structuredResponse: {
+//       "Key Features of Credit Card": "Borrow funds for purchases, repayable over time.",
+//       "Interest Rates": "Applicable if balance unpaid.",
+//       Rewards: "Cashback, miles, or points for eligible spends.",
+//       Fees: "Can include annual, late payment, and other types of fees.",
+//       Eligibility: "Depends on income, credit score, and residency.",
+//     },
+//   },
+// };
 
 async function getData(id: string) {
   try {
@@ -68,9 +68,9 @@ const toTitleCase = (str: any) => {
 const renderTextWithLinks = (text: any) => {
   return text;
 };
-export default async function QuestionPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
-  const data = await getData(id);
+export default async function QuestionPage({ params }: any) {
+  const id = await params?.id;
+  const data: NetworkResponse = await getData(id);
   return (
     <main className="bg-black p-2 px-5 flex flex-col gap-2 h-full max-w-[450px] min-w-[350px] mx-auto overflow-scroll">
       <header className="py-10 px-5 pb-3 flex justify-center items-center bg-[url('/images/background_shape.png')] bg-cover bg-center bg-no-repeat">
@@ -91,7 +91,7 @@ export default async function QuestionPage({ params }: { params: { id: string } 
             <div className="absolute -top-[60px] -left-8">
               <Image src="/images/star.svg" alt="Ai icon" width="100" height="100" />
             </div>
-            <p className="text-xs text-white break-words">{formatText(data?.answer?.responseText)}</p>
+            <div className="text-xs text-white break-words">{formatText(data?.answer?.responseText)}</div>
           </div>
           {/* answer structed text */}
           <div className="w-full border border-[#262a3438] rounded-sm overflow-hidden items-center">
